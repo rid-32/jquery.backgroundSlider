@@ -175,7 +175,7 @@
       
       //проверяем, нужен ли автозапуск
       if ( args.autoRun ) {
-        duration = args.duration || self.headerSlider.defaults.duration;
+        duration = args.duration || self.backgroundSlider.defaults.duration;
         
         autoRun();
       }
@@ -193,9 +193,9 @@
         self = this;
         
         //получаем номер начального кадра
-        frame = args.frame === undefined ? this.headerSlider.defaults.frame : args.frame;
+        frame = args.frame === undefined ? this.backgroundSlider.defaults.frame : args.frame;
         if ( frame >= frames ) {
-          frame = this.headerSlider.defaults.frame;
+          frame = this.backgroundSlider.defaults.frame;
         }
         
         //если используется glassFilter
@@ -290,35 +290,35 @@
         if ( ar.images && ar.images[ fr ] ) {
           this.css( 'background-image', 'url(' + ar.images[ fr ] + ')' );
         } else {
-          this.css( 'background-image', 'none' );
+          this.css( 'background-image', this.backgroundSlider.defaults.images[ 0 ] );
         }
         
         //если передан цвет фона
         if ( ar.bgColors && ar.bgColors[ fr ] ) {
           this.css( 'background-color', ar.bgColors[ fr ] );
         } else {
-          this.css( 'background-color', '#fff' );
+          this.css( 'background-color', this.backgroundSlider.defaults.bgColors[ 0 ] );
         }
         
         //если передан размер фона
         if ( ar.bgSize && ar.bgSize[ fr ] ) {
           this.css( 'background-size', ar.bgSize[ fr ] );
         } else {
-          this.css( 'background-size', 'auto auto' );
+          this.css( 'background-size', this.backgroundSlider.defaults.bgSize[ 0 ] );
         }
         
         //если передано повторение фона
         if ( ar.bgRepeat && ar.bgRepeat[ fr ] ) {
           this.css( 'background-repeat', ar.bgRepeat[ fr ] );
         } else {
-          this.css( 'background-repeat', 'repeat' );
+          this.css( 'background-repeat', this.backgroundSlider.defaults.bgRepeat[ 0 ] );
         }
         
         //если передана позиция фона
         if ( ar.bgPosition && ar.bgPosition[ fr ] ) {
           this.css( 'background-position', ar.bgPosition[ fr ] );
         } else {
-          this.css( 'background-position', '0% 0%' );
+          this.css( 'background-position', this.backgroundSlider.defaults.bgPosition[ 0 ] );
         }
         
         //если используется glassFilter
@@ -326,7 +326,7 @@
           $glassFilter.css( 'background-color', ar.glassFilter[ fr ] );
         } else {
           //цвет фона прозрачный
-          $glassFilter.css( 'background-color', 'transparent' );
+          $glassFilter.css( 'background-color', this.backgroundSlider.defaults.glassFilter[ 0 ] );
         }
         
         //если определён ajaxObject
@@ -338,7 +338,7 @@
   } )();
   
   //Основной метод плагина
-  $.fn.headerSlider = function( method ) {
+  $.fn.backgroundSlider = function( method ) {
     
     //Вызываем указанный метод или метод инициализации слайдера
     //В противном случае генерируем ошибку
@@ -357,26 +357,26 @@
   };
   
   //Параметры плагина по умолчанию
-  $.fn.headerSlider.defaults = {
-    images: [],     //по умолчанию - background-image: none;
-    bgColors: [],   //по умолчанию цветом фона для всех изображений явл-ся белый - #fff
-    bgSize: [],     //по умолчанию - background-size: auto, auto;
-    bgRepeat: [],   //по умолчанию - background-repeat: repeat;
-    bgPosition: [], //по умолчанию - background-position: 0% 0%
-    glassFilter: [],//по умолчанию - transparent. Чтобы включить, необходимо передать строку с цветом
-    frame: 0,
-    frames: 3,      //количество слайдов. Необязателен. Определяется по размеру массива с изображениями
-    leftPtr: '#leftPtrId',
-    rightPtr: '#rightPtrId',
-    autoRun: false,
-    duration: 5000,
-    sticker: '#stickerId',
-    activeClass: 'active-sticker',
-    stickerClick: false,
-    slideOther: {
-      changeParent: '#content',           //куда вставлять
-      changeTarget: '.slider-title',      //что вставлять
-      insertFrom: 'sliderContent.html'    //откуда вставлять
+  $.fn.backgroundSlider.defaults = {
+    images: [ 'none' ],            //массив с адресами фоновых изображения, по умолчанию - background-image: none;
+    bgColors: [ '#fff' ],          //массив с цветами фонов изображений, по умолчанию цветом фона для всех изображений явл-ся белый - #fff
+    bgSize: [ 'auto, auto' ],      //массив с размерами для фоновых изображений, по умолчанию - background-size: auto, auto;
+    bgRepeat: [ 'repeat' ],        //массив с опциями повторения фоновых изображений, по умолчанию - background-repeat: repeat;
+    bgPosition: [ '0% 0%' ],       //массив с координатами фоновых изображений, по умолчанию - background-position: 0% 0%
+    glassFilter: [ 'transparent' ],//массив с цветовыми фильтрами для фоновых изображений, по умолчанию - transparent. Чтобы включить, необходимо передать строку с цветом
+    frame: 0,                      //номер кадра, с которого должен начать работу слайдер при загрузке страницы
+    duration: 5000,                //время перед показом следующего слайда - частота слайд-шоу в миллисекундах
+    autoRun: false,                //автоматический запуск слайдера, для запуска установить в true
+    stickerClick: false,           //разрешение навигации по слайд-шоу при нажатии на соответствующий стикер, для разрешения установить в true
+    frames: $.noop,                //количество слайдов, по умолчанию определяется по размеру массива с изображениями
+    leftPtr: $.noop,               //id или класс DOM-элемента, являющегося левым переключателем для слайд-шоу
+    rightPtr: $.noop,              //id или класс DOM-элемента, являющегося правым переключателем для слайд-шоу
+    sticker: $.noop,               //id или класс списка ul, являющегося блоком со стикерами
+    activeClass: $.noop,           //css-класс, определяющий вид активного стикера
+    slideOther: {                  //объект с настройками для загрузки дополнительного контента в слайдер по AJAX 
+      changeParent: $.noop,        //id или класс блока в основном документе, куда осуществляется вставка контента
+      changeTarget: $.noop,        //класс блока для выборки из загружаемого по AJAX документа
+      insertFrom: $.noop           //html-файл в директории с основным документом, откуда вставлять контент
     }
   };
   
