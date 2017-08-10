@@ -120,20 +120,22 @@ The changeParent parameter specifies a block in the main HTML document where the
 
 For example, configure a slider with three frames for scrolling text. In the folder with the index.html file there is a file sliderContent.html with content:
 ```html
-<div class="slider-title">
-  <h1 class="slider-title">Block number one</h1>
-  <h1 class="slider-title">Intoduction</h1>
-</div>
-
-<div class="slider-title">
-  <h1 class="slider-title">Block number two</h1>
-  <h1 class="slider-title">Main text</h1>
-</div>
-
-<div class="slider-title">
-  <h1 class="slider-title">Block number three</h1>
-  <h1 class="slider-title">Post scriptum</h1>
-</div>
+<html>
+  <body>
+    <div class="slider-title">
+      <h1 class="slider-title">Block number one</h1>
+      <h1 class="slider-title">Intoduction</h1>
+    </div>
+    <div class="slider-title">
+      <h1 class="slider-title">Block number two</h1>
+      <h1 class="slider-title">Main text</h1>
+    </div>
+    <div class="slider-title">
+      <h1 class="slider-title">Block number three</h1>
+      <h1 class="slider-title">Post scriptum</h1>
+    </div>
+  </body>
+</html>
 ```
 The block with the slider-title class will be inserted into the #content block of the main document. The slideOther object will look like this:
 ```javascript

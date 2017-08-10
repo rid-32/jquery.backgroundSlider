@@ -128,20 +128,22 @@ $.fn.backgroundSlider.defaults = {
 
 Например, настроим слайдер с тремя кадрами для прокрутки текста. В папке с файлом index.html расположен файл sliderContent.html  с содержимым:
 ```html
-<div class="slider-title">
-  <h1 class="slider-title">Block number one</h1>
-  <h1 class="slider-title">Intoduction</h1>
-</div>
-
-<div class="slider-title">
-  <h1 class="slider-title">Block number two</h1>
-  <h1 class="slider-title">Main text</h1>
-</div>
-
-<div class="slider-title">
-  <h1 class="slider-title">Block number three</h1>
-  <h1 class="slider-title">Post scriptum</h1>
-</div>
+<html>
+  <body>
+    <div class="slider-title">
+      <h1 class="slider-title">Block number one</h1>
+      <h1 class="slider-title">Intoduction</h1>
+    </div>
+    <div class="slider-title">
+      <h1 class="slider-title">Block number two</h1>
+      <h1 class="slider-title">Main text</h1>
+    </div>
+    <div class="slider-title">
+      <h1 class="slider-title">Block number three</h1>
+      <h1 class="slider-title">Post scriptum</h1>
+    </div>
+  </body>
+</html>
 ```
 Блок с классом slider-title будет вставлен в блок #content основного документа. Объект slideOther будет выглядеть так:
 ```javascript

@@ -154,16 +154,6 @@
     //функция запуска слайдера
     function run() {
         
-      //проверяем, используется ли стикер для отображения
-      if ( args.sticker && args.activeClass ) {
-        $li = $( args.sticker ).find( 'li' );
-        
-        //проверяем, используется ли стикер для навигации
-        if ( args.stickerClick ) {
-          clickStickers();
-        }
-      }
-      
       //устанавливаем кадр
       methods.setFrame.call( self );
       
@@ -198,27 +188,32 @@
           frame = this.backgroundSlider.defaults.frame;
         }
         
-        //если используется glassFilter
-        if ( args.glassFilter ) {
+        //проверяем, используется ли стикер для отображения
+        if ( args.sticker && args.activeClass ) {
+          $li = $( args.sticker ).find( 'li' );
           
-          //настраиваем header
-          this.css( {
-            'position': 'relative',
-            'z-index': '1'
-          } );
-          
-          //создаём абсолютный блок и добавляем его в header
-          $glassFilter = $( document.createElement( 'div' ) );
-          $glassFilter.css( {
-            'position': 'absolute',
-            'left': '0px',
-            'top': '0px',
-            'width': '100%',
-            'height': '100%',
-            'z-index': '-1'
-          } );
-          this.prepend( $glassFilter );
+          //проверяем, используется ли стикер для навигации
+          if ( args.stickerClick ) {
+            clickStickers();
+          }
         }
+        
+        //настраиваем glassFilter
+        this.css( {
+          'position': 'relative',
+          'z-index': '1'
+        } );
+        //создаём абсолютный блок и добавляем его в header
+        $glassFilter = $( document.createElement( 'div' ) );
+        $glassFilter.css( {
+          'position': 'absolute',
+          'left': '0px',
+          'top': '0px',
+          'width': '100%',
+          'height': '100%',
+          'z-index': '-1'
+        } );
+        this.prepend( $glassFilter );
         
         //если нужно менять другой контент при слайд-шоу
         if ( args.slideOther ) {
@@ -269,9 +264,9 @@
         //если используется стикер для отображения номера слайда
         if ( $li ) {
           //убираем выделенный стикер
-          $li.removeClass( args.activeClass );
+          $li.removeClass( args.activeClass.substr( 1 ) );
           //добавляем выделенный стикер
-          $li.eq( frame ).addClass( args.activeClass );
+          $li.eq( frame ).addClass( args.activeClass.substr( 1 ) );
         }
         
         //определяем, был ли передан номер слайда в параметрах
@@ -331,7 +326,7 @@
         
         //если определён ajaxObject
         if ( ajaxObject ) {
-          this.find( ar.slideOther.changeParent ).html( ajaxObject.filter( ar.slideOther.changeTarget ).eq( fr ) );
+          this.find( ar.slideOther.changeParent ).html( ajaxObject.filter( ar.slideOther.changeTarget ).eq( fr ).html() );
         }
       }
     } 
